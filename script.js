@@ -8,6 +8,42 @@ let level = 1;
 let moves = 0;
 let solved = false;
 
+const puzzleLayouts = [
+{
+cells: [
+"⚡","┃","┓","","",
+"","","┃","","",
+"","","┗","━","",
+"","","","┃","",
+"","","","💡",""
+],
+win: [
+"⚡","━","┓","","",
+"","","┃","","",
+"","","┗","━","",
+"","","","┃","",
+"","","","💡",""
+]
+},
+
+{
+cells: [
+"⚡","┃","┓","","",
+"","","┃","","",
+"","","┗","┃","",
+"","","","┃","",
+"","","","💡",""
+],
+win: [
+"⚡","━","┓","","",
+"","","┃","","",
+"","","┗","━","",
+"","","","┃","",
+"","","","💡",""
+]
+]
+};
+
 let cells = [];
 let winPattern = [];
 
@@ -19,26 +55,16 @@ function loadLevel() {
     movesText.textContent = moves;
     levelText.textContent = level;
 
-    cells = [
-      "⚡","┃","┓","","",
-      "","","┃","","",
-      "","","┗","━","",
-      "","","","┃","",
-      "","","","💡",""
-    ];
+    const data =
+        puzzleLayouts[(level - 1) % puzzleLayouts.length];
 
-    winPattern = [
-      "⚡","━","┓","","",
-      "","","┃","","",
-      "","","┗","━","",
-      "","","","┃","",
-      "","","","💡",""
-    ];
+    cells = [...data.cells];
+    winPattern = [...data.win];
 
     nextLevelBtn.style.display = "none";
 
-    statusText.innerHTML =
-      "Connect the power source to the bulb!";
+    statusText.textContent =
+        "Connect the power source to the bulb!";
 
     statusText.style.color = "white";
 
@@ -49,16 +75,16 @@ function drawBoard() {
 
     board.innerHTML = "";
 
-    cells.forEach((cell,index)=>{
+    cells.forEach((cell, index) => {
 
         const div = document.createElement("div");
 
         div.className = "cell";
         div.textContent = cell;
 
-        div.addEventListener("click",()=>{
+        div.addEventListener("click", () => {
 
-            if(!solved){
+            if (!solved) {
                 rotateWire(index);
             }
 
@@ -71,60 +97,32 @@ function drawBoard() {
     checkWin();
 }
 
-function rotateWire(index){
+function rotateWire(index) {
 
     const rotations = {
-        "━":"┃",
-        "┃":"━",
-        "┓":"┛",
-        "┛":"┗",
-        "┗":"┏",
-        "┏":"┓"
+        "━": "┃",
+        "┃": "━",
+        "┓": "┛",
+        "┛": "┗",
+        "┗": "┏",
+        "┏": "┓"
     };
 
-    if(rotations[cells[index]]){
+    if (rotations[cells[index]]) {
 
         cells[index] = rotations[cells[index]];
 
         moves++;
-
         movesText.textContent = moves;
 
         drawBoard();
-
     }
 }
 
-function checkWin(){
+function checkWin() {
 
     let win = true;
 
-    for(let i=0;i<cells.length;i++){
+    for (let i = 0; i < cells.length; i++) {
 
-        if(cells[i] !== winPattern[i]){
-            win = false;
-            break;
-        }
-    }
-
-    if(win){
-
-        solved = true;
-
-        statusText.innerHTML =
-          "🎉 Level Complete!";
-
-        statusText.style.color = "#00ff66";
-
-        nextLevelBtn.style.display = "inline-block";
-    }
-}
-
-nextLevelBtn.addEventListener("click",()=>{
-
-    level++;
-
-    loadLevel();
-});
-
-loadLevel();
+        if
