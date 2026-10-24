@@ -1,3 +1,5 @@
+alert("SCRIPT LOADED");
+
 const board = document.getElementById("game-board");
 const statusText = document.getElementById("status");
 const levelText = document.getElementById("level");
@@ -99,10 +101,8 @@ function rotateWire(index) {
 
     if (rotations[cells[index]]) {
         cells[index] = rotations[cells[index]];
-
         moves++;
         movesText.textContent = moves;
-
         drawBoard();
     }
 }
@@ -119,10 +119,8 @@ function checkWin() {
 
     if (win) {
         solved = true;
-
         statusText.textContent = "🎉 Level Complete!";
         statusText.style.color = "#00ff66";
-
         nextLevelBtn.style.display = "inline-block";
     }
 }
