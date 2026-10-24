@@ -89,8 +89,9 @@ h1 {
     padding: 15px;
     border-radius: 20px;
 
-    box-shadow:
-        0 0 25px rgba(0,255,255,.25);
+    box-shadow: 0 0 25px rgba(0,255,255,.25);
+
+    transition: all 0.4s ease;
 }
 
 .cell {
@@ -161,86 +162,15 @@ h1 {
         0 0 35px #00ffff;
 }
 
-@keyframes bulbPulse {
-    0% {
-        transform: scale(1);
-    }
+/* POWERED WIRES */
 
-    50% {
-        transform: scale(1.2);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-.bulb-on {
-    animation: bulbPulse 1s infinite;
-}
-
-@media (max-width: 650px) {
-
-    h1 {
-        font-size: 48px;
-    }
-
-    #game-board {
-        width: 310px;
-        grid-template-columns: repeat(5, 60px);
-    }
-
-    .cell {
-        width: 60px;
-        height: 60px;
-        font-size: 28px;
-    }
-
-    .hud {
-        gap: 15px;
-        font-size: 15px;
-    }
-}
 .powered {
-    color: #00ffff;
+    color: #00ffff !important;
 
-    text-shadow:
-        0 0 10px #00ffff,
-        0 0 20px #00ffff,
-        0 0 40px #00ffff;
+    background: rgba(0,255,255,.15);
 
-    animation: powerPulse 0.8s infinite;
-}
+    border-color: #00ffff !important;
 
-@keyframes powerPulse {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.12);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-.bulb-on {
-    animation: bulbGlow 0.8s infinite;
-}
-
-@keyframes bulbGlow {
-
-    0% {
-        filter: drop-shadow(0 0 5px yellow);
-    }
-
-    50% {
-        filter: drop-shadow(0 0 25px gold);
-    }
-
-    100% {
-        filter: drop-shadow(0 0 5px yellow);
-    }
-}
+    box-shadow:
+        0 0 15px #00ffff,
+        0 0 30px
