@@ -1,0 +1,30 @@
+body {
+  background: #111;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+#game-board {
+  width: 320px;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  gap: 4px;
+}
+
+.cell {
+  width: 60px;
+  height: 60px;
+  background: #222;
+  border: 1px solid #555;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  cursor: pointer;
+}
