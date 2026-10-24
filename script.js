@@ -29,12 +29,12 @@ function generateLevel() {
     const rotatableIndexes = [1, 2, 7, 12, 13, 18];
 
     const rotations = {
-        "━":"┃",
-        "┃":"━",
-        "┓":"┛",
-        "┛":"┗",
-        "┗":"┏",
-        "┏":"┓"
+        "━": "┃",
+        "┃": "━",
+        "┓": "┛",
+        "┛": "┗",
+        "┗": "┏",
+        "┏": "┓"
     };
 
     const shuffleCount = Math.min(level + 2, 12);
@@ -44,13 +44,11 @@ function generateLevel() {
         const randomIndex =
             rotatableIndexes[
                 Math.floor(
-                    Math.random() *
-                    rotatableIndexes.length
+                    Math.random() * rotatableIndexes.length
                 )
             ];
 
         if (rotations[cells[randomIndex]]) {
-
             cells[randomIndex] =
                 rotations[cells[randomIndex]];
         }
@@ -68,6 +66,11 @@ function loadLevel() {
 
     solved = false;
     moves = 0;
+
+    board.style.boxShadow =
+        "0 0 25px rgba(0,255,255,.25)";
+
+    board.style.transform = "scale(1)";
 
     movesText.textContent = moves;
     levelText.textContent = level;
@@ -114,12 +117,12 @@ function drawBoard() {
 function rotateWire(index) {
 
     const rotations = {
-        "━":"┃",
-        "┃":"━",
-        "┓":"┛",
-        "┛":"┗",
-        "┗":"┏",
-        "┏":"┓"
+        "━": "┃",
+        "┃": "━",
+        "┓": "┛",
+        "┛": "┗",
+        "┗": "┏",
+        "┏": "┓"
     };
 
     if (rotations[cells[index]]) {
@@ -150,6 +153,28 @@ function checkWin() {
 
         solved = true;
 
+        board.style.boxShadow =
+            "0 0 80px #00ffcc";
+
+        board.style.transform =
+            "scale(1.03)";
+
+        document
+            .querySelectorAll(".cell")
+            .forEach(cell => {
+                cell.classList.add("powered");
+            });
+
+        document
+            .querySelectorAll(".cell")
+            .forEach(cell => {
+
+                if (cell.textContent === "💡") {
+                    cell.classList.add("bulb-on");
+                }
+
+            });
+
         coins += 10;
 
         coinsText.textContent = coins;
@@ -175,19 +200,17 @@ function checkWin() {
     }
 }
 
-nextLevelBtn.addEventListener(
-    "click",
-    () => {
+nextLevelBtn.addEventListener("click", () => {
 
-        level++;
+    level++;
 
-        localStorage.setItem(
-            "sparkLevel",
-            level
-        );
+    localStorage.setItem(
+        "sparkLevel",
+        level
+    );
 
-        loadLevel();
-    }
-);
+    loadLevel();
+
+});
 
 loadLevel();
