@@ -1,12 +1,13 @@
-alert("SCRIPT LOADED");
-
 const board = document.getElementById("game-board");
 const statusText = document.getElementById("status");
 const levelText = document.getElementById("level");
 const movesText = document.getElementById("moves");
+const coinsText = document.getElementById("coins");
 const nextLevelBtn = document.getElementById("nextLevelBtn");
 
-let level = 1;
+let level = Number(localStorage.getItem("sparkLevel")) || 1;
+let coins = Number(localStorage.getItem("sparkCoins")) || 0;
+
 let moves = 0;
 let solved = false;
 
@@ -49,11 +50,13 @@ let cells = [];
 let winPattern = [];
 
 function loadLevel() {
+
     solved = false;
     moves = 0;
 
     movesText.textContent = moves;
     levelText.textContent = level;
+    coinsText.textContent = coins;
 
     const data = puzzleLayouts[(level - 1) % puzzleLayouts.length];
 
@@ -69,9 +72,11 @@ function loadLevel() {
 }
 
 function drawBoard() {
+
     board.innerHTML = "";
 
     cells.forEach((cell, index) => {
+
         const div = document.createElement("div");
 
         div.className = "cell";
@@ -84,12 +89,14 @@ function drawBoard() {
         });
 
         board.appendChild(div);
+
     });
 
     checkWin();
 }
 
 function rotateWire(index) {
+
     const rotations = {
         "━": "┃",
         "┃": "━",
@@ -100,34 +107,56 @@ function rotateWire(index) {
     };
 
     if (rotations[cells[index]]) {
+
         cells[index] = rotations[cells[index]];
+
         moves++;
         movesText.textContent = moves;
+
         drawBoard();
     }
 }
 
 function checkWin() {
+
     let win = true;
 
     for (let i = 0; i < cells.length; i++) {
+
         if (cells[i] !== winPattern[i]) {
             win = false;
             break;
         }
     }
 
-    if (win) {
+    if (win && !solved) {
+
         solved = true;
-        statusText.textContent = "🎉 Level Complete!";
+
+        coins += 10;
+
+        coinsText.textContent = coins;
+
+        localStorage.setItem("sparkCoins", coins);
+        localStorage.setItem("sparkLevel", level);
+
+        statusText.textContent =
+            "🎉 Level Complete! +10 Coins";
+
         statusText.style.color = "#00ff66";
+
         nextLevelBtn.style.display = "inline-block";
     }
 }
 
 nextLevelBtn.addEventListener("click", () => {
+
     level++;
+
+    localStorage.setItem("sparkLevel", level);
+
     loadLevel();
+
 });
 
 loadLevel();
