@@ -18,6 +18,7 @@ body::before {
     content: "";
     position: fixed;
     inset: 0;
+    pointer-events: none;
 
     background:
         repeating-linear-gradient(
@@ -29,13 +30,13 @@ body::before {
         );
 
     animation: lightningMove 8s linear infinite;
-    pointer-events: none;
 }
 
 @keyframes lightningMove {
     from {
         transform: translateX(-250px);
     }
+
     to {
         transform: translateX(250px);
     }
@@ -45,9 +46,11 @@ body::before {
     0% {
         filter: brightness(1);
     }
+
     50% {
         filter: brightness(1.15);
     }
+
     100% {
         filter: brightness(1);
     }
@@ -56,6 +59,7 @@ body::before {
 h1 {
     margin-top: 15px;
     font-size: 64px;
+    color: white;
 
     text-shadow:
         0 0 10px #00ffff,
@@ -83,7 +87,6 @@ h1 {
     gap: 6px;
 
     padding: 15px;
-
     border-radius: 20px;
 
     box-shadow:
@@ -106,7 +109,7 @@ h1 {
     font-size: 38px;
     cursor: pointer;
 
-    transition: .2s ease;
+    transition: 0.2s ease;
 }
 
 .cell:hover {
@@ -137,20 +140,18 @@ h1 {
     font-weight: bold;
 
     cursor: pointer;
-
     color: black;
 
-    background:
-        linear-gradient(
-            135deg,
-            #00ffb3,
-            #00d4ff
-        );
+    background: linear-gradient(
+        135deg,
+        #00ffb3,
+        #00d4ff
+    );
 
     box-shadow:
         0 0 20px rgba(0,255,255,.45);
 
-    transition: .2s ease;
+    transition: 0.2s ease;
 }
 
 #nextLevelBtn:hover {
@@ -190,4 +191,13 @@ h1 {
     }
 
     .cell {
-        
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+    }
+
+    .hud {
+        gap: 15px;
+        font-size: 15px;
+    }
+}
