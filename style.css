@@ -28,3 +28,8 @@ h1 {
   font-size: 28px;
   cursor: pointer;
 }
+#status {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+}
