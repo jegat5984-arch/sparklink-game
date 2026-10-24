@@ -43,9 +43,17 @@ body::before {
 }
 
 @keyframes backgroundPulse {
-    0% { filter: brightness(1); }
-    50% { filter: brightness(1.15); }
-    100% { filter: brightness(1); }
+    0% {
+        filter: brightness(1);
+    }
+
+    50% {
+        filter: brightness(1.15);
+    }
+
+    100% {
+        filter: brightness(1);
+    }
 }
 
 h1 {
@@ -84,10 +92,9 @@ h1 {
     background: rgba(0,0,0,.25);
 
     box-shadow:
-        0 0 20px #00ffff,
-        0 0 60px rgba(0,255,255,.25);
+        0 0 20px rgba(0,255,255,.25);
 
-    transition: all .4s ease;
+    transition: all .3s ease;
 }
 
 .cell {
@@ -122,10 +129,8 @@ h1 {
     border-color: #00ffff;
 
     box-shadow:
-        0 0 20px #00ffff,
-        0 0 60px #00ffff;
-
-    background: rgba(0,255,255,.08);
+        0 0 15px #00ffff,
+        0 0 30px rgba(0,255,255,.4);
 }
 
 #status {
@@ -146,96 +151,5 @@ h1 {
     font-weight: bold;
 
     cursor: pointer;
-    color: black;
 
-    background: linear-gradient(
-        135deg,
-        #00ffb3,
-        #00d4ff
-    );
-
-    box-shadow:
-        0 0 20px rgba(0,255,255,.45);
-
-    transition: .2s ease;
-}
-
-#nextLevelBtn:hover {
-    transform: scale(1.08);
-
-    box-shadow:
-        0 0 35px #00ffff;
-}
-
-.powered {
-    color: #00ffff !important;
-
-    background: rgba(0,255,255,.25);
-
-    border-color: #00ffff !important;
-
-    box-shadow:
-        0 0 20px #00ffff,
-        0 0 40px #00ffff,
-        0 0 80px #00ffff,
-        inset 0 0 25px #00ffff;
-
-    text-shadow:
-        0 0 10px #00ffff,
-        0 0 25px #00ffff,
-        0 0 50px #00ffff;
-
-    animation: powerPulse .5s infinite;
-}
-
-@keyframes powerPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.12); }
-    100% { transform: scale(1); }
-}
-
-.bulb-on {
-    animation: bulbGlow .4s infinite;
-}
-
-@keyframes bulbGlow {
-    0% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 10px yellow);
-    }
-
-    50% {
-        transform: scale(1.8);
-        filter:
-            drop-shadow(0 0 50px gold)
-            drop-shadow(0 0 100px yellow);
-    }
-
-    100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 10px yellow);
-    }
-}
-
-@media (max-width: 650px) {
-
-    h1 {
-        font-size: 48px;
-    }
-
-    #game-board {
-        width: 310px;
-        grid-template-columns: repeat(5, 60px);
-    }
-
-    .cell {
-        width: 60px;
-        height: 60px;
-        font-size: 36px;
-    }
-
-    .hud {
-        gap: 15px;
-        font-size: 15px;
-    }
-}
+    color: black
