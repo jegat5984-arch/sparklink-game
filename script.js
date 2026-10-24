@@ -25,7 +25,6 @@ win: [
 "","","","💡",""
 ]
 },
-
 {
 cells: [
 "⚡","┃","┓","","",
@@ -41,64 +40,54 @@ win: [
 "","","","┃","",
 "","","","💡",""
 ]
-]
-};
+}
+];
 
 let cells = [];
 let winPattern = [];
 
 function loadLevel() {
-
     solved = false;
     moves = 0;
 
     movesText.textContent = moves;
     levelText.textContent = level;
 
-    const data =
-        puzzleLayouts[(level - 1) % puzzleLayouts.length];
+    const data = puzzleLayouts[(level - 1) % puzzleLayouts.length];
 
     cells = [...data.cells];
     winPattern = [...data.win];
 
     nextLevelBtn.style.display = "none";
 
-    statusText.textContent =
-        "Connect the power source to the bulb!";
-
+    statusText.textContent = "Connect the power source to the bulb!";
     statusText.style.color = "white";
 
     drawBoard();
 }
 
 function drawBoard() {
-
     board.innerHTML = "";
 
     cells.forEach((cell, index) => {
-
         const div = document.createElement("div");
 
         div.className = "cell";
         div.textContent = cell;
 
         div.addEventListener("click", () => {
-
             if (!solved) {
                 rotateWire(index);
             }
-
         });
 
         board.appendChild(div);
-
     });
 
     checkWin();
 }
 
 function rotateWire(index) {
-
     const rotations = {
         "━": "┃",
         "┃": "━",
@@ -109,7 +98,6 @@ function rotateWire(index) {
     };
 
     if (rotations[cells[index]]) {
-
         cells[index] = rotations[cells[index]];
 
         moves++;
@@ -120,9 +108,28 @@ function rotateWire(index) {
 }
 
 function checkWin() {
-
     let win = true;
 
     for (let i = 0; i < cells.length; i++) {
+        if (cells[i] !== winPattern[i]) {
+            win = false;
+            break;
+        }
+    }
 
-        if
+    if (win) {
+        solved = true;
+
+        statusText.textContent = "🎉 Level Complete!";
+        statusText.style.color = "#00ff66";
+
+        nextLevelBtn.style.display = "inline-block";
+    }
+}
+
+nextLevelBtn.addEventListener("click", () => {
+    level++;
+    loadLevel();
+});
+
+loadLevel();
