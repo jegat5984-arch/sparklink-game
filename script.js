@@ -67,11 +67,6 @@ function loadLevel() {
     solved = false;
     moves = 0;
 
-    board.style.boxShadow =
-        "0 0 25px rgba(0,255,255,.25)";
-
-    board.style.transform = "scale(1)";
-
     movesText.textContent = moves;
     levelText.textContent = level;
     coinsText.textContent = coins;
@@ -153,27 +148,13 @@ function checkWin() {
 
         solved = true;
 
-        board.style.boxShadow =
-            "0 0 80px #00ffcc";
+        document.querySelectorAll(".cell").forEach(cell => {
 
-        board.style.transform =
-            "scale(1.03)";
+            if (cell.textContent === "💡") {
+                cell.classList.add("bulb-on");
+            }
 
-        document
-            .querySelectorAll(".cell")
-            .forEach(cell => {
-                cell.classList.add("powered");
-            });
-
-        document
-            .querySelectorAll(".cell")
-            .forEach(cell => {
-
-                if (cell.textContent === "💡") {
-                    cell.classList.add("bulb-on");
-                }
-
-            });
+        });
 
         coins += 10;
 
