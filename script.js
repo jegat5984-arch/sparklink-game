@@ -11,43 +11,58 @@ let coins = Number(localStorage.getItem("sparkCoins")) || 0;
 let moves = 0;
 let solved = false;
 
-const puzzleLayouts = [
-{
-cells: [
-"⚡","┃","┓","","",
-"","","┃","","",
-"","","┗","━","",
-"","","","┃","",
-"","","","💡",""
-],
-win: [
-"⚡","━","┓","","",
-"","","┃","","",
-"","","┗","━","",
-"","","","┃","",
-"","","","💡",""
-]
-},
-{
-cells: [
-"⚡","┃","┓","","",
-"","","┃","","",
-"","","┗","┃","",
-"","","","┃","",
-"","","","💡",""
-],
-win: [
-"⚡","━","┓","","",
-"","","┃","","",
-"","","┗","━","",
-"","","","┃","",
-"","","","💡",""
-]
-}
-];
-
 let cells = [];
 let winPattern = [];
+
+function generateLevel() {
+
+    winPattern = [
+        "⚡","━","┓","","",
+        "","","┃","","",
+        "","","┗","━","",
+        "","","","┃","",
+        "","","","💡",""
+    ];
+
+    cells = [...winPattern];
+
+    const rotatableIndexes = [1, 2, 7, 12, 13, 18];
+
+    const rotations = {
+        "━":"┃",
+        "┃":"━",
+        "┓":"┛",
+        "┛":"┗",
+        "┗":"┏",
+        "┏":"┓"
+    };
+
+    const shuffleCount = Math.min(level + 2, 12);
+
+    for (let i = 0; i < shuffleCount; i++) {
+
+        const randomIndex =
+            rotatableIndexes[
+                Math.floor(
+                    Math.random() *
+                    rotatableIndexes.length
+                )
+            ];
+
+        if (rotations[cells[randomIndex]]) {
+
+            cells[randomIndex] =
+                rotations[cells[randomIndex]];
+        }
+    }
+
+    if (
+        JSON.stringify(cells) ===
+        JSON.stringify(winPattern)
+    ) {
+        generateLevel();
+    }
+}
 
 function loadLevel() {
 
@@ -58,14 +73,13 @@ function loadLevel() {
     levelText.textContent = level;
     coinsText.textContent = coins;
 
-    const data = puzzleLayouts[(level - 1) % puzzleLayouts.length];
-
-    cells = [...data.cells];
-    winPattern = [...data.win];
+    generateLevel();
 
     nextLevelBtn.style.display = "none";
 
-    statusText.textContent = "Connect the power source to the bulb!";
+    statusText.textContent =
+        "Connect the power source to the bulb!";
+
     statusText.style.color = "white";
 
     drawBoard();
@@ -83,9 +97,11 @@ function drawBoard() {
         div.textContent = cell;
 
         div.addEventListener("click", () => {
+
             if (!solved) {
                 rotateWire(index);
             }
+
         });
 
         board.appendChild(div);
@@ -98,12 +114,12 @@ function drawBoard() {
 function rotateWire(index) {
 
     const rotations = {
-        "━": "┃",
-        "┃": "━",
-        "┓": "┛",
-        "┛": "┗",
-        "┗": "┏",
-        "┏": "┓"
+        "━":"┃",
+        "┃":"━",
+        "┓":"┛",
+        "┛":"┗",
+        "┗":"┏",
+        "┏":"┓"
     };
 
     if (rotations[cells[index]]) {
@@ -111,6 +127,7 @@ function rotateWire(index) {
         cells[index] = rotations[cells[index]];
 
         moves++;
+
         movesText.textContent = moves;
 
         drawBoard();
@@ -137,26 +154,40 @@ function checkWin() {
 
         coinsText.textContent = coins;
 
-        localStorage.setItem("sparkCoins", coins);
-        localStorage.setItem("sparkLevel", level);
+        localStorage.setItem(
+            "sparkCoins",
+            coins
+        );
+
+        localStorage.setItem(
+            "sparkLevel",
+            level
+        );
 
         statusText.textContent =
             "🎉 Level Complete! +10 Coins";
 
-        statusText.style.color = "#00ff66";
+        statusText.style.color =
+            "#00ff66";
 
-        nextLevelBtn.style.display = "inline-block";
+        nextLevelBtn.style.display =
+            "inline-block";
     }
 }
 
-nextLevelBtn.addEventListener("click", () => {
+nextLevelBtn.addEventListener(
+    "click",
+    () => {
 
-    level++;
+        level++;
 
-    localStorage.setItem("sparkLevel", level);
+        localStorage.setItem(
+            "sparkLevel",
+            level
+        );
 
-    loadLevel();
-
-});
+        loadLevel();
+    }
+);
 
 loadLevel();
