@@ -4,6 +4,14 @@ const statusText = document.getElementById("status");
 let solved = false;
 
 const cells = [
+  "⚡","┃","┓","","",
+  "","","┃","","",
+  "","","┗","━","",
+  "","","","┃","",
+  "","","","💡",""
+];
+
+const winPattern = [
   "⚡","━","┓","","",
   "","","┃","","",
   "","","┗","━","",
@@ -33,17 +41,16 @@ function drawBoard() {
 }
 
 function rotateWire(index) {
-
   const rotations = {
-    "━":"┃",
-    "┃":"━",
-    "┓":"┛",
-    "┛":"┗",
-    "┗":"┏",
-    "┏":"┓"
+    "━": "┃",
+    "┃": "━",
+    "┓": "┛",
+    "┛": "┗",
+    "┗": "┏",
+    "┏": "┓"
   };
 
-  if(rotations[cells[index]]) {
+  if (rotations[cells[index]]) {
     cells[index] = rotations[cells[index]];
   }
 
@@ -51,29 +58,20 @@ function rotateWire(index) {
 }
 
 function checkWin() {
-
-  const winPattern = [
-    "⚡","━","┓","","",
-    "","","┃","","",
-    "","","┗","━","",
-    "","","","┃","",
-    "","","","💡",""
-  ];
-
   let win = true;
 
-  for(let i = 0; i < cells.length; i++) {
-    if(cells[i] !== winPattern[i]) {
+  for (let i = 0; i < cells.length; i++) {
+    if (cells[i] !== winPattern[i]) {
       win = false;
       break;
     }
   }
 
-  if(win) {
+  if (win) {
     solved = true;
-
     statusText.innerHTML =
       "🎉 Level Complete! Bulb Powered Successfully!";
+    statusText.style.color = "#00ff66";
   }
 }
 
